@@ -1,0 +1,25 @@
+# Olaf Loader
+
+`olaf-loader` is a Webpack loader for **Olaf**, a playful and simple programming language inspired by the beloved snowman from Disney's *Frozen*. With this loader, you can easily compile Olaf code into JavaScript, making it easy to integrate Olaf into your Webpack projects.
+
+## Features
+
+- **Fun and Simple Syntax**: Olaf uses intuitive and fun syntax, making programming easier and more enjoyable.
+- **Seamless Webpack Integration**: Use the `olaf-loader` to automatically compile Olaf code into JavaScript during your Webpack build process.
+- **Object-Oriented Support**: Define classes and use constructors to structure your code.
+- **Asynchronous Handling**: Simulate asynchronous operations with the `wait` keyword.
+- **Error Handling**: Olaf comes with built-in checks for common syntax errors, ensuring a smooth development experience.
+
+## Getting Started
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (version 12 or higher)
+- [Webpack](https://webpack.js.org/) (version 5 or higher)
+
+### Installation
+
+To install `olaf-loader` and use it in your Webpack project, run the following command:
+
+```bash
+npm install olaf-loader --save
