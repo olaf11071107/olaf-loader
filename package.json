@@ -1,6 +1,6 @@
 {
   "name": "olaf-loader",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "index.js",
   "description": "A Webpack loader for the Olaf language.",
   "keywords": [
@@ -27,5 +27,11 @@
   "bugs": {
     "url": "https://github.com/olaf11071107/olaf-loader/issues"
   },
-  "homepage": "https://github.com/olaf11071107/olaf-loader#readme"
+  "homepage": "https://github.com/olaf11071107/olaf-loader#readme",
+  "files": [
+    "index.js",
+    "OlafLanguageCompiler.js",
+    "README.md",
+    "DOCUMENTATION.md"
+  ]
 }
