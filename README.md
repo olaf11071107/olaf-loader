@@ -25,11 +25,141 @@ To install `olaf-loader` and use it in your Webpack project, run the following c
 npm install olaf-loader --save
 ```
 
+## Sample Code
+```olaf
+build checkNumber(num):
+    if num > 0:
+        say num + " is positive."
+    else:
+        if num < 0:
+            say num + " is negative."
+        else:
+            say num + " is zero."
+    end
+end
+
+build doubleNumbers(numbers):
+    return numbers.map(number => number * 2):
+end
+
+build filterEvens(numbers):
+    return numbers.filter(number => number % 2 == 0):
+end
+
+build printNumbers(arr):
+    for each num in arr:
+        say num
+    end
+end
+
+build main:
+    array nums = [-1, 0, 1, 5, -10]
+
+    say "Checking Numbers:"
+    for each number in nums:
+        checkNumber(number) // Calling the function to check each number
+    end
+
+    say "Original Numbers:"
+    printNumbers(nums) // Invoke to print original numbers
+
+    snowball doubled = doubleNumbers(nums) // Call to doubleNumbers function
+    say "Doubled Numbers:"
+    printNumbers(doubled) // Invoke to print doubled numbers
+
+    snowball evens = filterEvens(nums) // Call to filterEvens function
+    say "Even Numbers:"
+    printNumbers(evens) // Invoke to print even numbers
+
+end
+
+```
+
+Compiled JavaScript Code
+
+```js
+function checkNumber(num) {
+    if (num > 0) {
+        console.log(num + " is positive.");
+    } else {
+        if (num < 0) {
+            console.log(num + " is negative.");
+        } else {
+            console.log(num + " is zero.");
+        }
+    }
+}
+
+function doubleNumbers(numbers) {
+    return numbers.map(number => number * 2);
+}
+
+function filterEvens(numbers) {
+    return numbers.filter(number => number % 2 == 0);
+}
+
+function printNumbers(arr) {
+    for (const num of arr) {
+        console.log(num);
+    }
+}
+
+function main() {
+    let nums = [-1, 0, 1, 5, -10];
+
+    console.log("Checking Numbers:");
+    for (const number of nums) {
+        checkNumber(number); // Calling the function to check each number
+    }
+
+    console.log("Original Numbers:");
+    printNumbers(nums); // Invoke to print original numbers
+
+    let doubled = doubleNumbers(nums); // Call to doubleNumbers function
+    console.log("Doubled Numbers:");
+    printNumbers(doubled); // Invoke to print doubled numbers
+
+    let evens = filterEvens(nums); // Call to filterEvens function
+    console.log("Even Numbers:");
+    printNumbers(evens); // Invoke to print even numbers
+}
+
+main();
+
+```
+
+Execution result:
+
+```
+Checking Numbers:
+-1 is negative.
+0 is zero.
+1 is positive.
+5 is positive.
+-10 is negative.
+Original Numbers:
+-1
+0
+1
+5
+-10
+Doubled Numbers:
+-2
+0
+2
+10
+-20
+Even Numbers:
+0
+-10
+
+```
+
 ## VSCode Integration
 
 Olaf supports VSCode extension for IntelliSense, Code snippets, and syntax highlighting.
 
-https://github.com/olaf11071107/olaf-loader
-https://github.com/olaf11071107/olaf-syntax-highlighter-vscode
-https://npmjs.org/olaf-loader
-https://marketplace.visualstudio.com/items?itemName=olaf11071107.olaf-syntax-highlighter
+[GitHub](https://github.com/olaf11071107/olaf-loader) <br>
+[VSCode Extension repository](https://github.com/olaf11071107/olaf-syntax-highlighter-vscode) <br>
+[NPM registry](https://npmjs.org/olaf-loader) <br>
+[Syntax Highlighter Extension for VSCode](https://marketplace.visualstudio.com/items?itemName=olaf11071107.olaf-syntax-highlighter)

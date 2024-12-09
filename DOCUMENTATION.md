@@ -1,315 +1,213 @@
-Here's a complete documentation of the **Olaf programming language**, including its syntax, features, and example code snippets.
-
----
-
-# **Olaf Language Documentation**
+# Olaf Language Documentation
 
 ## Overview
-Olaf is a simple, high-level, interpreted programming language designed for ease of use and readability. Inspired by the character **Olaf** from Disney's Frozen, the language aims to be playful, fun, and intuitive for developers while offering powerful features like dynamic typing, basic object-oriented programming, and a simple syntax.
 
-### Key Features:
-- **Dynamic Typing:** Variables are not declared with explicit types. The language infers types based on the values assigned.
-- **Object-Oriented:** Classes can be defined with constructors, methods, and member variables.
-- **Built-in Functions:** Olaf comes with built-in functions for basic input/output operations.
-- **Clean Syntax:** The syntax is minimalistic and easy to read.
-- **Interactive:** Olaf has a playful tone and can be used for teaching or fun applications.
+Olaf Language is a simple and user-friendly programming language designed to simplify JavaScript code. It allows developers to write code using natural language constructs that are easy to understand. Olaf Language is a high-level language, which compiles directly to JavaScript. This documentation provides a comprehensive guide to the syntax and usage of Olaf Language.
 
----
+## Core Syntax
 
-## Table of Contents:
-1. [Basic Syntax](#basic-syntax)
-2. [Variables and Constants](#variables-and-constants)
-3. [Data Types](#data-types)
-4. [Control Flow](#control-flow)
-5. [Functions](#functions)
-6. [Classes and Objects](#classes-and-objects)
-7. [Comments](#comments)
-8. [Built-in Functions](#built-in-functions)
-9. [Error Handling](#error-handling)
-10. [Code Formatting and Best Practices](#code-formatting-and-best-practices)
+Olaf Language uses several keywords to represent common programming constructs. Below are the key elements and their translations to JavaScript:
 
----
+### 1. **Function Declaration**
+- **Olaf:** `build functionName parameters:`
+- **JavaScript:** `function functionName(parameters) { ... }`
 
-## **Basic Syntax**
-
-### Olaf Syntax Overview:
-Olaf syntax is designed to be simple and human-readable. The general structure is:
-
-- **Statements** end with a colon `:`.
-- **Blocks** are indented with spaces.
-- **Keywords** are in lowercase (e.g., `build`, `end`).
-
-### Example Code:
-
+Example:
 ```olaf
-build greet:
-    say "Hello, Olaf!"
+build greet name:
+  say "Hello, " + name
+  return "Done"
 end
 ```
-
-In the above code:
-- `build` defines a block (like a function or method).
-- `say` prints the message.
-
----
-
-## **Variables and Constants**
-
-### Defining Variables:
-You don't need to specify the type of a variable; Olaf determines the type based on the value assigned.
-
-```olaf
-snowball name = "Olaf"
-snowball age = 5
+Becomes:
+```javascript
+function greet(name) {
+    console.log("Hello, " + name);
+    return "Done";
+}
 ```
 
-In the above code:
-- `snowball` is used to define a variable (like `let` or `var` in other languages).
-- Variables can hold strings, numbers, or other types.
+### 2. **Variable Declaration**
+- **Olaf:** `snowball variableName`
+- **JavaScript:** `let variableName`
 
-### Constants:
-To define a constant, use the keyword `iceball`:
-
+Example:
 ```olaf
-iceball PI = 3.14159
+snowball x = 10
+```
+Becomes:
+```javascript
+let x = 10;
 ```
 
----
+### 3. **Print Statement**
+- **Olaf:** `say message`
+- **JavaScript:** `console.log(message)`
 
-## **Data Types**
-
-Olaf supports the following basic data types:
-
-- **String**: A sequence of characters enclosed in double quotes `""`.
-  - Example: `"Hello, world!"`
-- **Integer**: Whole numbers.
-  - Example: `42`
-- **Float**: Numbers with a decimal point.
-  - Example: `3.14`
-- **Boolean**: Either `true` or `false`.
-  - Example: `true`
-- **Object**: Instances of classes.
-  - Example: `person = Person()`
-
----
-
-## **Control Flow**
-
-### If-Else Statements:
-Olaf uses `if`, `else`, and `elsif` for conditional branching.
-
+Example:
 ```olaf
-build checkAge(age):
-    if age >= 18:
-        say "You are an adult."
-    elsif age >= 13:
-        say "You are a teenager."
-    else:
-        say "You are a child."
-    end
+say "Hello, Olaf!"
+```
+Becomes:
+```javascript
+console.log("Hello, Olaf!");
+```
+
+### 4. **Conditional Statements**
+- **Olaf:** `if it's cold:`
+- **JavaScript:** `if (true) { ... }`
+
+Example:
+```olaf
+if it's cold:
+  say "It's cold!"
+else:
+  say "It's warm!"
 end
 ```
+Becomes:
+```javascript
+if (true) {
+    console.log("It's cold!");
+} else {
+    console.log("It's warm!");
+}
+```
 
-### Loops:
+### 5. **Loops**
+- **Olaf:** `keep` (while loop), `for each` (for loop)
+- **JavaScript:** `while` (while loop), `for` (for loop)
 
-#### For Loop:
+Example (while loop):
 ```olaf
-build countTo(n):
-    for i = 1 to n:
-        say i
-    end
+keep x < 10:
+  snowball x = x + 1
+  say x
 end
 ```
-
-#### While Loop:
-```olaf
-build countdown(n):
-    while n > 0:
-        say n
-        snowball n = n - 1
-    end
-end
+Becomes:
+```javascript
+while (x < 10) {
+    let x = x + 1;
+    console.log(x);
+}
 ```
 
----
+### 6. **Array Declaration**
+- **Olaf:** `array variableName = [elements]`
+- **JavaScript:** `let variableName = [elements]`
 
-## **Functions**
-
-Functions in Olaf are defined using the `build` keyword. You don't need to specify a return type.
-
-### Example Function:
+Example:
 ```olaf
-build add(a, b):
-    return a + b
-end
+array numbers = [1, 2, 3, 4]
+```
+Becomes:
+```javascript
+let numbers = [1, 2, 3, 4];
 ```
 
-- Functions can return values using the `return` keyword.
+### 7. **Class Declaration**
+- **Olaf:** `class ClassName`
+- **JavaScript:** `class ClassName { ... }`
 
-### Calling Functions:
+Example:
 ```olaf
-snowball result = add(2, 3)
-say result
-```
-
----
-
-## **Classes and Objects**
-
-Olaf supports object-oriented programming with classes. You can define classes, constructors, and methods.
-
-### Defining a Class:
-```olaf
-class Person:
-    build constructor(name, age):
-        snowball this.name = name
-        snowball this.age = age
-    end
-
-    build greet:
-        say "Hello, " + this.name
-    end
-end
-```
-
-- `class` defines a class.
-- `constructor` defines the class constructor (like a constructor in other languages).
-- `this` refers to instance variables of the class.
-
-### Creating Objects:
-```olaf
-snowball person = Person("Olaf", 5)
-person.greet
-```
-
----
-
-## **Comments**
-
-Olaf supports both **single-line** and **multi-line** comments.
-
-### Single-line Comment:
-```olaf
-// This is a single-line comment
-```
-
-### Multi-line Comment:
-```olaf
-/*
-This is a
-multi-line comment
-*/
-```
-
----
-
-## **Built-in Functions**
-
-Olaf provides some built-in functions for basic tasks:
-
-- **`say`**: Prints a message to the console.
-  ```olaf
-  say "Hello, Olaf!"
-  ```
-  
-- **`snowball`**: Defines a variable.
-  ```olaf
-  snowball name = "Olaf"
-  ```
-
-- **`iceball`**: Defines a constant.
-  ```olaf
-  iceball PI = 3.14159
-  ```
-
-- **`build`**: Defines a function or method.
-  ```olaf
-  build greet:
-      say "Hello!"
+class Person
+  constructor name, age
+    snowball this.name = name
+    snowball this.age = age
   end
-  ```
-
-- **`return`**: Returns a value from a function.
-  ```olaf
-  return 42
-  ```
-
----
-
-## **Error Handling**
-
-In Olaf, error handling can be done using `try` and `catch`.
-
-### Example of Error Handling:
-
-```olaf
-build divide(a, b):
-    try:
-        return a / b
-    catch:
-        say "Error: Division by zero."
-    end
 end
 ```
-
-In the example above:
-- `try` executes the code inside the block.
-- `catch` handles errors that occur during the execution of the `try` block.
-
----
-
-## **Code Formatting and Best Practices**
-
-### Indentation:
-- Use **spaces** for indentation (typically 2 or 4 spaces per level).
-- Be consistent in the number of spaces you use for indentation.
-
-### Statements:
-- Every statement must end with a colon `:`.
-- Always use proper indentation to indicate code blocks.
-
-### Function and Method Definitions:
-- Use the `build` keyword to define functions or methods, followed by a colon.
-  
-### Example of Proper Formatting:
-```olaf
-build calculateArea(radius):
-    snowball area = PI * radius * radius
-    return area
-end
+Becomes:
+```javascript
+class Person {
+    constructor(name, age) {
+        this.name = name;
+        this.age = age;
+    }
+}
 ```
 
----
+### 8. **Constructor**
+- **Olaf:** `constructor`
+- **JavaScript:** `constructor`
 
-## **Example Program**
+### 9. **Creating Instances**
+- **Olaf:** `new ClassName()`
+- **JavaScript:** `new ClassName()`
 
-Here's a full example of an Olaf program that defines a class, performs a calculation, and handles errors:
+### 10. **Return Statement**
+- **Olaf:** `return`
+- **JavaScript:** `return`
 
+Example:
 ```olaf
-// Define the class
-class Circle:
-    build constructor(radius):
-        snowball this.radius = radius
-    end
-
-    build calculateArea:
-        snowball area = PI * this.radius * this.radius
-        return area
-    end
-end
-
-// Create an object of Circle
-snowball myCircle = Circle(5)
-
-// Calculate area
-snowball area = myCircle.calculateArea
-say "Area of the circle is: " + area
+return "Finished"
+```
+Becomes:
+```javascript
+return "Finished";
 ```
 
----
+### 11. **Waiting for a Timeout (Async)**
+- **Olaf:** `wait`
+- **JavaScript:** `await new Promise(resolve => setTimeout(resolve, 1000));`
 
-## **Conclusion**
+Example:
+```olaf
+wait
+```
+Becomes:
+```javascript
+await new Promise(resolve => setTimeout(resolve, 1000));
+```
 
-Olaf is a fun and simple programming language that can be used for quick prototyping, learning programming concepts, or just having fun with coding. With its clean and human-readable syntax, Olaf is a great starting point for beginners, as well as a fun language for experienced developers.
+### 12. **Array Map Function**
+- **Olaf:** `map`
+- **JavaScript:** `array.map()`
 
-Feel free to explore and extend the Olaf language with your own custom features!
+Example:
+```olaf
+array.map(item -> say item)
+```
+Becomes:
+```javascript
+array.map(item => console.log(item));
+```
+
+## Special Keywords
+
+Here’s a list of special keywords in Olaf Language and their translations to JavaScript:
+
+| Olaf Keyword  | JavaScript Equivalent                | Description                                     |
+|---------------|--------------------------------------|-------------------------------------------------|
+| `build`       | `function`                           | Defines a function.                            |
+| `snowball`    | `let`                                | Declares a variable.                           |
+| `say`         | `console.log`                        | Prints a message to the console.               |
+| `if it's cold`| `if (condition)`                     | Defines a conditional block.                   |
+| `else`        | `else`                               | Defines an else block in a conditional.        |
+| `end`         | `}`                                  | Ends a block (function, loop, etc.).           |
+| `return`      | `return`                             | Returns a value from a function.               |
+| `keep`        | `while`                              | Defines a while loop.                          |
+| `for each`    | `for`                                | Defines a for loop.                            |
+| `map`         | `.map`                               | Maps an array using a function.                |
+| `until`       | `)`                                  | Ends a loop or function.                       |
+| `class`       | `class`                              | Defines a class.                               |
+| `constructor` | `constructor`                        | Defines the constructor of a class.            |
+| `new`         | `new`                                | Instantiates a new object.                     |
+| `this`        | `this`                               | Refers to the current object in a class.       |
+| `wait`        | `await new Promise(resolve => setTimeout(resolve, 1000))` | Simulates an async wait (pause).   |
+| `array`       | `[]`                                 | Declares an array.                             |
+
+## Error Handling
+
+When compiling Olaf code to JavaScript, the compiler checks for some common errors, such as:
+
+1. **Mismatched 'build' and 'end' statements** – This occurs if there is an imbalance between function definitions (`build`) and block ends (`end`).
+2. **Invalid syntax** – If there are issues in the Olaf code that do not match any defined keyword or pattern, they will throw an error.
+
+## Conclusion
+
+Olaf Language provides a simple syntax that can be easily converted to JavaScript. It is designed to help developers write code that is easy to read and understand, using natural language expressions. By following the rules outlined in this documentation, developers can write efficient and clean code in Olaf Language that compiles seamlessly to JavaScript.
+

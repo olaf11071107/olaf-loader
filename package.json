@@ -1,6 +1,6 @@
 {
   "name": "olaf-loader",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "index.js",
   "description": "A Webpack loader for the Olaf language.",
   "keywords": [
