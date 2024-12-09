@@ -1,66 +1,103 @@
 class OlafLanguageCompiler {
   constructor() {
     this.translations = {
-      "build": "function",         // Function declaration
-      "snowball": "let",           // Variable declaration
-      "say": "console.log",        // Print statement
-      "if it's cold": "if (true)", // Conditional for cold (simplified)
-      "else": "else",              // Else condition
-      "end": "}",                  // End of block (function, loop, etc.)
-      "return": "return",          // Return statement
-      "keep": "while",             // 'keep' becomes 'while' loop
-      "for each": "for",           // 'for each' becomes 'for' loop
-      "map": "map",                // Array map function
-      "until": ")",                // End of loop (while or for)
-      "class": "class",            // Class declaration
-      "constructor": "constructor", // Constructor
-      "new": "new",                // 'new' keyword for instantiation
-      "this": "this",              // 'this' reference
-      "wait": "await new Promise(resolve => setTimeout(resolve, 1000));", // Wait statement (simulates async)
-      "array": "[]",               // Array declaration
+      build: "function", // Function declaration
+      snowball: "let", // Variable declaration
+      say: "console.log", // Print statement
+      if: "if", // If statement
+      else: "else", // Else statement
+      end: "}", // End of block
+      return: "return", // Return statement
+      keep: "while", // 'keep' becomes 'while' loop
+      "for each": "for", // 'for each' becomes 'for' loop
+      array: "[]", // Array declaration
     };
+    this.blockStack = []; // Track open blocks
   }
 
   compile(olafCode) {
     this.errors = [];
     const lines = olafCode.split("\n");
 
-    // 1. Check for missing 'end' statements
-    const endCount = (olafCode.match(/\bend\b/g) || []).length;
-    const buildCount = (olafCode.match(/\bbuild\b/g) || []).length;
-    if (endCount !== buildCount) {
-      this.errors.push("Mismatched 'build' and 'end' statements.");
+    // Check for missing 'end' statements and track blocks
+    for (const line of lines) {
+      const trimmedLine = line.trim();
+
+      // Push to the block stack on encountering 'build', 'if', 'for each', or 'keep'
+      if (/\b(build|if|for each|keep)\b/.test(trimmedLine)) {
+        this.blockStack.push(trimmedLine);
+      }
+
+      // Handle end statements
+      if (trimmedLine === "end") {
+        if (this.blockStack.length === 0) {
+          this.errors.push(
+              "Unexpected 'end' statement without a matching block."
+          );
+        } else {
+          this.blockStack.pop(); // Pop the last opened block
+        }
+      }
     }
 
-    // 2. Translate Olaf to JS
+    // Check for unmatched blocks
+    if (this.blockStack.length > 0) {
+      this.errors.push(
+          "Missing 'end' statements for the following blocks: " +
+          this.blockStack.join(", ")
+      );
+    }
+
+    // Translate Olaf to JS
     let jsCode = olafCode
-        .replace(/\b(build)\s+(\w+)\s*$([^)]*)$:/g, (match, keyword, functionName, params) =>
-            `function ${functionName}(${params}) {`) // Handles function declaration with parameters
-        .replace(/\b(build)\s+(\w+)\s*:\s*/g, (match, keyword, functionName) =>
-            `function ${functionName}() {`) // Handles function declaration without parameters
-        .replace(/\b(class)\s+(\w+)/g, (match, keyword, className) => `class ${className}`)
-        .replace(/\bconstructor\b/g, this.translations.constructor)
-        .replace(/\bnew\s+(\w+)/g, (match, className) => `new ${className}()`)
-        .replace(/\barray\s+(\w+)\s*=\s*\[/g, (match, varName) => `let ${varName} = [` ) // Handles array declaration
-        .replace(/\b(wait)\b/g, this.translations.wait)
-        .replace(/\b(build)\b/g, this.translations.build)
-        .replace(/\b(snowball)\b/g, this.translations.snowball)
-        .replace(/\b(say)\b/g, this.translations.say)
-        .replace(/\b(if)\s+(.*?)\s*:\s*/g, (match, keyword, condition) => `if (${condition}) {`) // Translating if statements
-        .replace(/\belse\b/g, 'else ') // Translating else statements
-        .replace(/\b(end)\b/g, this.translations.end)
-        .replace(/\b(return)\b/g, this.translations.return)
-        .replace(/\b(keep)\b/g, this.translations.keep)
-        .replace(/\b(for each)\b/g, this.translations["for each"])
-        .replace(/\b(map)\b/g, this.translations.map) // Placeholder for array map
-        .replace(/\b(until)\b/g, this.translations.until)
-        .replace(/\b(this)\b/g, this.translations.this); // 'this' keyword in classes
+        // Handle function declarations with parameters in the 'build' syntax
+        .replace(
+            /\b(build)\s+(\w+)\s*\(([^)]*)\)\s*:/g,
+            (match, keyword, functionName, params) =>
+                `function ${functionName}(${params.trim()}) {`
+        )
+        // Handle function declarations without parameters (build syntax)
+        .replace(
+            /\b(build)\s+(\w+)\s*:\s*/g,
+            (match, keyword, functionName) => `function ${functionName}() {`
+        )
+        // Handle variable declarations
+        .replace(
+            /\b(snowball)\s+(\w+)\s*=\s*(.*)/g,
+            (match, keyword, varName, value) => `let ${varName} = ${value.trim()};`
+        )
+        // Print statement
+        .replace(
+            /\b(say)\s+(.*)/g,
+            (match, keyword, message) => `console.log(${message.trim()});`
+        )
+        // If statement
+        .replace(
+            /\b(if)\s+(.*):/g,
+            (match, keyword, condition) => `if (${condition.trim()}) {`
+        )
+        // Else statement
+        .replace(/\b(else)\s*:/g, "} else {")
+        // Return statement
+        .replace(
+            /\b(return)\s+(.*)/g,
+            (match, keyword, value) => `return ${value.trim()};`
+        )
+        // While loop
+        .replace(
+            /\b(keep)\s+(.*):/g,
+            (match, keyword, condition) => `while (${condition.trim()}) {`
+        )
+        // For each loop
+        .replace(
+            /\b(for each)\s+(.*)\s+in\s+(.*):/g,
+            (match, keyword, item, array) =>
+                `for (const ${item.trim()} of ${array.trim()}) {`
+        )
+        // Convert end to closing bracket
+        .replace(/\bend\b/g, "}");
 
-    // Handle array map functions, e.g., `array.map(item => doSomething(item))`
-    jsCode = jsCode.replace(/(\w+)\s*\.map$([^)]+)$\s*:/g, (match, arrayName, body) =>
-        `${arrayName}.map(${body})`); // Converts the Olaf map definition into JavaScript
-
-    // 3. Check for errors
+    // Check for errors after parsing
     if (this.errors.length > 0) {
       throw new Error(this.errors.join("\n"));
     }
@@ -69,4 +106,5 @@ class OlafLanguageCompiler {
   }
 }
 
+// Export the OlafLanguageCompiler class
 module.exports = OlafLanguageCompiler;

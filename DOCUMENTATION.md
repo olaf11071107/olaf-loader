@@ -1,213 +1,313 @@
 # Olaf Language Documentation
 
-## Overview
+Olaf is a simple, high-level programming language designed for easy readability and efficient translation to JavaScript. The Olaf Language Compiler takes Olaf code and converts it into JavaScript code. This documentation outlines the syntax and key features of the Olaf language.
 
-Olaf Language is a simple and user-friendly programming language designed to simplify JavaScript code. It allows developers to write code using natural language constructs that are easy to understand. Olaf Language is a high-level language, which compiles directly to JavaScript. This documentation provides a comprehensive guide to the syntax and usage of Olaf Language.
+## Syntax
 
-## Core Syntax
+### 1. **Function Declaration** (`build`)
+In Olaf, functions are declared using the `build` keyword.
 
-Olaf Language uses several keywords to represent common programming constructs. Below are the key elements and their translations to JavaScript:
-
-### 1. **Function Declaration**
-- **Olaf:** `build functionName parameters:`
-- **JavaScript:** `function functionName(parameters) { ... }`
-
-Example:
+#### Syntax:
 ```olaf
-build greet name:
-  say "Hello, " + name
-  return "Done"
+build functionName(parameters):
+    // main function logic
 end
 ```
-Becomes:
+**Example:**
+```olaf
+build greet(name):
+  say "Hello, " + name
+end
+```
+**Translates to:**
 ```javascript
 function greet(name) {
-    console.log("Hello, " + name);
-    return "Done";
+  console.log("Hello, " + name);
 }
 ```
 
-### 2. **Variable Declaration**
-- **Olaf:** `snowball variableName`
-- **JavaScript:** `let variableName`
+### 2. **Variable Declaration** (`snowball`)
+Variables are declared using the `snowball` keyword, followed by the variable name and its value.
 
-Example:
+#### Syntax:
 ```olaf
-snowball x = 10
+snowball variableName = value
 ```
-Becomes:
+**Example:**
+```olaf
+snowball age = 25
+```
+**Translates to:**
 ```javascript
-let x = 10;
+let age = 25;
 ```
 
-### 3. **Print Statement**
-- **Olaf:** `say message`
-- **JavaScript:** `console.log(message)`
+### 3. **Print Statement** (`say`)
+The `say` keyword is used to print a message to the console.
 
-Example:
+#### Syntax:
 ```olaf
-say "Hello, Olaf!"
+say message
 ```
-Becomes:
+**Example:**
+```olaf
+say "Hello, World!"
+```
+**Translates to:**
 ```javascript
-console.log("Hello, Olaf!");
+console.log("Hello, World!");
 ```
 
-### 4. **Conditional Statements**
-- **Olaf:** `if it's cold:`
-- **JavaScript:** `if (true) { ... }`
+### 4. **Conditional Statements** (`if` and `else`)
+Olaf uses the `if` keyword for conditionals, and `else` for alternate paths.
 
-Example:
+#### Syntax:
 ```olaf
-if it's cold:
-  say "It's cold!"
+if condition:
+  // statements
 else:
-  say "It's warm!"
+  // statements
 end
 ```
-Becomes:
+**Example:**
+```olaf
+if age > 18:
+  say "You are an adult"
+else:
+  say "You are a minor"
+end
+```
+**Translates to:**
 ```javascript
-if (true) {
-    console.log("It's cold!");
+if (age > 18) {
+  console.log("You are an adult");
 } else {
-    console.log("It's warm!");
+  console.log("You are a minor");
 }
 ```
 
 ### 5. **Loops**
-- **Olaf:** `keep` (while loop), `for each` (for loop)
-- **JavaScript:** `while` (while loop), `for` (for loop)
+Olaf supports two types of loops: `keep` for `while` loops and `for each` for `for...of` loops.
 
-Example (while loop):
+#### 5.1 **While Loop** (`keep`)
+The `keep` keyword is used for loops that continue while a condition is true.
+
+##### Syntax:
 ```olaf
-keep x < 10:
-  snowball x = x + 1
-  say x
+keep condition:
+  // statements
 end
 ```
-Becomes:
+**Example:**
+```olaf
+keep age < 30:
+  age = age + 1
+end
+```
+**Translates to:**
 ```javascript
-while (x < 10) {
-    let x = x + 1;
-    console.log(x);
+while (age < 30) {
+  age = age + 1;
 }
 ```
 
-### 6. **Array Declaration**
-- **Olaf:** `array variableName = [elements]`
-- **JavaScript:** `let variableName = [elements]`
+#### 5.2 **For Loop** (`for each`)
+The `for each` keyword is used for iterating over arrays.
 
-Example:
+##### Syntax:
 ```olaf
-array numbers = [1, 2, 3, 4]
-```
-Becomes:
-```javascript
-let numbers = [1, 2, 3, 4];
-```
-
-### 7. **Class Declaration**
-- **Olaf:** `class ClassName`
-- **JavaScript:** `class ClassName { ... }`
-
-Example:
-```olaf
-class Person
-  constructor name, age
-    snowball this.name = name
-    snowball this.age = age
-  end
+for each item in array:
+  // statements
 end
 ```
-Becomes:
+**Example:**
+```olaf
+for each person in people:
+  say person
+end
+```
+**Translates to:**
 ```javascript
-class Person {
-    constructor(name, age) {
-        this.name = name;
-        this.age = age;
-    }
+for (const person of people) {
+  console.log(person);
 }
 ```
 
-### 8. **Constructor**
-- **Olaf:** `constructor`
-- **JavaScript:** `constructor`
+### 6. **Return Statement** (`return`)
+The `return` keyword is used to return a value from a function.
 
-### 9. **Creating Instances**
-- **Olaf:** `new ClassName()`
-- **JavaScript:** `new ClassName()`
-
-### 10. **Return Statement**
-- **Olaf:** `return`
-- **JavaScript:** `return`
-
-Example:
+#### Syntax:
 ```olaf
-return "Finished"
+return value
 ```
-Becomes:
-```javascript
-return "Finished";
-```
-
-### 11. **Waiting for a Timeout (Async)**
-- **Olaf:** `wait`
-- **JavaScript:** `await new Promise(resolve => setTimeout(resolve, 1000));`
-
-Example:
+**Example:**
 ```olaf
-wait
+return age
 ```
-Becomes:
+**Translates to:**
 ```javascript
-await new Promise(resolve => setTimeout(resolve, 1000));
+return age;
 ```
 
-### 12. **Array Map Function**
-- **Olaf:** `map`
-- **JavaScript:** `array.map()`
+### 7. **End of Block** (`end`)
+Blocks of code are closed using the `end` keyword. It is used to mark the end of a function, loop, or conditional statement.
 
-Example:
+#### Syntax:
 ```olaf
-array.map(item -> say item)
+end
 ```
-Becomes:
+**Example:**
+```olaf
+build greet(name):
+  say "Hello, " + name
+end
+```
+**Translates to:**
 ```javascript
-array.map(item => console.log(item));
+function greet(name) {
+  console.log("Hello, " + name);
+}
 ```
 
-## Special Keywords
+### 8. **Arrays** (`array`)
+Arrays in Olaf are defined using square brackets `[]`.
 
-Here’s a list of special keywords in Olaf Language and their translations to JavaScript:
-
-| Olaf Keyword  | JavaScript Equivalent                | Description                                     |
-|---------------|--------------------------------------|-------------------------------------------------|
-| `build`       | `function`                           | Defines a function.                            |
-| `snowball`    | `let`                                | Declares a variable.                           |
-| `say`         | `console.log`                        | Prints a message to the console.               |
-| `if it's cold`| `if (condition)`                     | Defines a conditional block.                   |
-| `else`        | `else`                               | Defines an else block in a conditional.        |
-| `end`         | `}`                                  | Ends a block (function, loop, etc.).           |
-| `return`      | `return`                             | Returns a value from a function.               |
-| `keep`        | `while`                              | Defines a while loop.                          |
-| `for each`    | `for`                                | Defines a for loop.                            |
-| `map`         | `.map`                               | Maps an array using a function.                |
-| `until`       | `)`                                  | Ends a loop or function.                       |
-| `class`       | `class`                              | Defines a class.                               |
-| `constructor` | `constructor`                        | Defines the constructor of a class.            |
-| `new`         | `new`                                | Instantiates a new object.                     |
-| `this`        | `this`                               | Refers to the current object in a class.       |
-| `wait`        | `await new Promise(resolve => setTimeout(resolve, 1000))` | Simulates an async wait (pause).   |
-| `array`       | `[]`                                 | Declares an array.                             |
+#### Syntax:
+```olaf
+snowball myArray = [1, 2, 3]
+```
+**Translates to:**
+```javascript
+let myArray = [1, 2, 3];
+```
 
 ## Error Handling
 
-When compiling Olaf code to JavaScript, the compiler checks for some common errors, such as:
+The Olaf compiler will raise errors in the following cases:
+- Missing `end` statements for blocks such as functions, loops, or conditionals.
+- Unexpected `end` statements that do not match any open blocks.
 
-1. **Mismatched 'build' and 'end' statements** – This occurs if there is an imbalance between function definitions (`build`) and block ends (`end`).
-2. **Invalid syntax** – If there are issues in the Olaf code that do not match any defined keyword or pattern, they will throw an error.
+## Example Program
+
+Here is a simple example program written in Olaf:
+
+```olaf
+build greet(name):
+  say "Hello, " + name
+end
+
+snowball age = 25
+if age > 18:
+  say "You are an adult"
+else:
+  say "You are a minor"
+end
+```
+
+**Translates to:**
+```javascript
+function greet(name) {
+  console.log("Hello, " + name);
+}
+
+let age = 25;
+if (age > 18) {
+  console.log("You are an adult");
+} else {
+  console.log("You are a minor");
+}
+```
+
+More complex program:
+
+```olaf
+build factorial(n):
+  snowball result = 1
+  keep n > 1:
+    result = result * n
+    n = n - 1
+  end
+  return result
+end
+
+build isPrime(n):
+  if n <= 1:
+    return false
+  end
+  snowball i = 2
+  keep i <= n / 2:
+    if n % i == 0:
+      return false
+    end
+    i = i + 1
+  end
+  return true
+end
+
+build main():
+  snowball number = 5
+  snowball factorialResult = factorial(number)
+  say "Factorial of " + number + " is " + factorialResult
+
+  snowball primeCheck = isPrime(number)
+  if primeCheck:
+    say number + " is a prime number."
+  else:
+    say number + " is not a prime number."
+  end
+
+  snowball rangeEnd = 10
+  say "Numbers from 1 to " + rangeEnd + ":"
+  snowball i = 1
+  keep i <= rangeEnd:
+    say i
+    i = i + 1
+  end
+end
+
+main()
+
+```
+
+This program includes:
+1. A function to calculate the factorial of a number.
+2. A function to check if a number is prime.
+3. A main section that demonstrates both of these functions in action.
+
+**Explanation:**
+
+1. **`factorial(n)` function**:
+    - This function calculates the factorial of a number `n` by multiplying the number by every integer less than it until reaching 1.
+    - **Example:** `factorial(5)` returns `120`.
+
+2. **`isPrime(n)` function**:
+    - This function checks if a number `n` is prime by attempting to divide it by all integers between `2` and `n/2`.
+    - If `n` is divisible by any of these numbers, it is not prime, and the function returns `false`. If no divisors are found, it returns `true`.
+    - **Example:** `isPrime(5)` returns `true`, and `isPrime(4)` returns `false`.
+
+3. **`main()` function**:
+    - This is the main function where we call both `factorial()` and `isPrime()` functions.
+    - It calculates the factorial of `5`, checks if `5` is a prime number, and prints all numbers from 1 to `10`.
+
+4. **Program Output:**
+    - The program prints:
+   ```
+   Factorial of 5 is 120
+   5 is a prime number.
+   Numbers from 1 to 10:
+   1
+   2
+   3
+   4
+   5
+   6
+   7
+   8
+   9
+   10
+   ```
+
 
 ## Conclusion
 
-Olaf Language provides a simple syntax that can be easily converted to JavaScript. It is designed to help developers write code that is easy to read and understand, using natural language expressions. By following the rules outlined in this documentation, developers can write efficient and clean code in Olaf Language that compiles seamlessly to JavaScript.
-
+Olaf is a simple and intuitive language designed to simplify programming concepts for beginners, while also providing the power of JavaScript. It can be easily translated into JavaScript through the Olaf Language Compiler, making it an ideal choice for teaching and learning programming concepts.

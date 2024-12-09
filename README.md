@@ -35,15 +35,16 @@ build checkNumber(num):
             say num + " is negative."
         else:
             say num + " is zero."
+        end
     end
 end
 
 build doubleNumbers(numbers):
-    return numbers.map(number => number * 2):
+    return numbers.map(number => number * 2)
 end
 
 build filterEvens(numbers):
-    return numbers.filter(number => number % 2 == 0):
+    return numbers.filter(number => number % 2 == 0)
 end
 
 build printNumbers(arr):
@@ -53,7 +54,7 @@ build printNumbers(arr):
 end
 
 build main:
-    array nums = [-1, 0, 1, 5, -10]
+    snowball nums = [-1, 0, 1, 5, -10]
 
     say "Checking Numbers:"
     for each number in nums:
@@ -72,6 +73,8 @@ build main:
     printNumbers(evens) // Invoke to print even numbers
 
 end
+
+main()
 
 ```
 
