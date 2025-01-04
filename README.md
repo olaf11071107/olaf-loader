@@ -26,6 +26,7 @@ npm install olaf-loader --save
 ```
 
 ## Sample Code
+
 ```olaf
 build checkNumber(num):
     if num > 0:
@@ -53,6 +54,16 @@ build printNumbers(arr):
     end
 end
 
+snowman Animal:
+    build constructor(name):
+        this.name = name
+    end
+
+    build makeSound(sound):
+        say this.name + " says " + sound
+    end
+end
+
 build main:
     snowball nums = [-1, 0, 1, 5, -10]
 
@@ -72,6 +83,9 @@ build main:
     say "Even Numbers:"
     printNumbers(evens) // Invoke to print even numbers
 
+    snowball dog = new Animal("Sven")
+    dog.makeSound("woof")
+
 end
 
 main()
@@ -82,53 +96,65 @@ Compiled JavaScript Code
 
 ```js
 function checkNumber(num) {
-    if (num > 0) {
-        console.log(num + " is positive.");
+  if (num > 0) {
+    console.log(num + " is positive.");
+  } else {
+    if (num < 0) {
+      console.log(num + " is negative.");
     } else {
-        if (num < 0) {
-            console.log(num + " is negative.");
-        } else {
-            console.log(num + " is zero.");
-        }
+      console.log(num + " is zero.");
     }
+  }
 }
 
 function doubleNumbers(numbers) {
-    return numbers.map(number => number * 2);
+  return numbers.map((number) => number * 2);
 }
 
 function filterEvens(numbers) {
-    return numbers.filter(number => number % 2 == 0);
+  return numbers.filter((number) => number % 2 == 0);
 }
 
 function printNumbers(arr) {
-    for (const num of arr) {
-        console.log(num);
-    }
+  for (const num of arr) {
+    console.log(num);
+  }
+}
+
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+
+  makeSound(sound) {
+    console.log(this.name + " says " + sound);
+  }
 }
 
 function main() {
-    let nums = [-1, 0, 1, 5, -10];
+  let nums = [-1, 0, 1, 5, -10];
 
-    console.log("Checking Numbers:");
-    for (const number of nums) {
-        checkNumber(number); // Calling the function to check each number
-    }
+  console.log("Checking Numbers:");
+  for (const number of nums) {
+    checkNumber(number); // Calling the function to check each number
+  }
 
-    console.log("Original Numbers:");
-    printNumbers(nums); // Invoke to print original numbers
+  console.log("Original Numbers:");
+  printNumbers(nums); // Invoke to print original numbers
 
-    let doubled = doubleNumbers(nums); // Call to doubleNumbers function
-    console.log("Doubled Numbers:");
-    printNumbers(doubled); // Invoke to print doubled numbers
+  let doubled = doubleNumbers(nums); // Call to doubleNumbers function
+  console.log("Doubled Numbers:");
+  printNumbers(doubled); // Invoke to print doubled numbers
 
-    let evens = filterEvens(nums); // Call to filterEvens function
-    console.log("Even Numbers:");
-    printNumbers(evens); // Invoke to print even numbers
+  let evens = filterEvens(nums); // Call to filterEvens function
+  console.log("Even Numbers:");
+  printNumbers(evens); // Invoke to print even numbers
+
+  let dog = new Animal("Sven");
+  dog.makeSound("woof");
 }
 
 main();
-
 ```
 
 Execution result:
@@ -155,6 +181,7 @@ Doubled Numbers:
 Even Numbers:
 0
 -10
+Sven says woof
 
 ```
 
