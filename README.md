@@ -9,6 +9,12 @@
 - **Object-Oriented Support**: Define classes and use constructors to structure your code.
 - **Asynchronous Handling**: Simulate asynchronous operations with the `wait` keyword.
 - **Error Handling**: Olaf comes with built-in checks for common syntax errors, ensuring a smooth development experience.
+- **String Interpolation**: Use `${expression}` for string interpolation
+- **Comments Support**: Both single-line (`//`) and multi-line (`/* */`) comments
+- **Source Maps**: Built-in source map support for better debugging
+- **Constant Variables**: Use `freeze` keyword for constants
+- **Array Methods**: Enhanced array operation support
+- **Default Parameters**: Support for default function parameters
 
 ## Getting Started
 

@@ -12,12 +12,22 @@ class OlafLanguageCompiler {
       "for each": "for", // 'for each' becomes 'for' loop
       array: "[]", // Array declaration
       snowman: "class", // Class declaration
+      freeze: "const", // Constant declaration
+      melt: "delete", // Delete operator
+      is: "===", // Strict equality
+      isnt: "!==", // Strict inequality
     };
     this.blockStack = []; // Track open blocks
   }
 
   compile(olafCode) {
     this.errors = [];
+
+    // Remove comments first
+    olafCode = olafCode
+      .replace(/\/\/.*$/gm, "") // Remove single-line comments
+      .replace(/\/\*[\s\S]*?\*\//g, ""); // Remove multi-line comments
+
     const lines = olafCode.split("\n");
 
     // Check for missing 'end' statements and track blocks
@@ -113,7 +123,23 @@ class OlafLanguageCompiler {
           `for (const ${item.trim()} of ${array.trim()}) {`
       )
       // Convert end to closing bracket
-      .replace(/\bend\b/g, "}");
+      .replace(/\bend\b/g, "}")
+      // Handle string interpolation
+      .replace(/\$\{([^}]+)\}/g, "${$1}")
+      // Handle array methods
+      .replace(/\.each\(/g, ".forEach(")
+      .replace(/\.size\b/g, ".length")
+      // Handle default parameters
+      .replace(
+        /\b(build)\s+(\w+)\s*\(([^)]*)\)\s*:/g,
+        (match, keyword, funcName, params) => {
+          const processedParams = params
+            .split(",")
+            .map((p) => (p.includes("=") ? p : p.trim()))
+            .join(",");
+          return `function ${funcName}(${processedParams}) {`;
+        }
+      );
 
     // Check for errors after parsing
     if (this.errors.length > 0) {

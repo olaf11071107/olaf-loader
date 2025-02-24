@@ -1,19 +1,26 @@
 {
   "name": "olaf-loader",
-  "version": "1.1.0",
+  "version": "1.1.4",
   "main": "index.js",
   "description": "A Webpack loader for the Olaf language.",
   "keywords": [
     "webpack",
     "loader",
     "Olaf",
-    "compiler"
+    "compiler",
+    "transpiler",
+    "language",
+    "olaf-lang"
   ],
   "devDependencies": {
     "webpack": "^5.0.0"
   },
   "peerDependencies": {
     "webpack": "^5.0.0"
+  },
+  "dependencies": {
+    "loader-utils": "^2.0.0",
+    "source-map": "^0.7.4"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
